@@ -129,4 +129,5 @@
 /* Font override — outside @layer so it beats Tailwind utility classes */
 body {
   font-family: "Times New Roman", Times, serif;
+  color: #FF0084
 }
