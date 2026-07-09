@@ -9,7 +9,7 @@ const footerLinks: { title: string; href: string }[] = [
 
 export default function Footer() {
   return (
-    <footer className="w-full border-t border-border">
+    <footer className="w-full">
       <div className="w-full flex justify-between items-center gap-1 px-[8%] py-8">
         <div className="text-left flex flex-col md:flex-row items-start md:items-center gap-8 md:gap-8">
           <span className="text-sm font-medium">ATENCIÓN AL CLIENTE</span>

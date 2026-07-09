@@ -10,6 +10,7 @@
   --color-foreground: var(--foreground);
   --font-sans: "Times New Roman", Times, serif;
   --font-mono: "Times New Roman", Times, serif;
+  --font-helvetica: Helvetica, "Helvetica Neue", Arial, sans-serif;
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);

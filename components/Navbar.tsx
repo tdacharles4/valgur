@@ -18,7 +18,7 @@ export default function Navbar() {
   const [open, setOpen] = React.useState(false);
 
   return (
-    <header className="w-full border-b border-border text-[#FF0084]">
+    <header className="w-full">
       <nav className="w-full flex justify-between items-center gap-1 px-[8%] py-8">
         {/* Desktop links */}
         <ul className="hidden md:flex items-center gap-8">
