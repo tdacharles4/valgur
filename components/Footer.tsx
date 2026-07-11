@@ -12,8 +12,8 @@ export default function Footer() {
     <footer className="w-full">
       <div className="w-full flex justify-between items-center gap-1 px-[8%] py-8">
         <div className="text-left flex flex-col md:flex-row items-start md:items-center gap-8 md:gap-8">
-          <span className="text-sm font-medium">ATENCIÓN AL CLIENTE</span>
-          <span className="text-sm font-medium">POLITICA DE PRIVACIDAD</span>
+          <a href="/" className="text-sm font-medium">ATENCIÓN AL CLIENTE</a>
+          <a href="/" className="text-sm font-medium">POLITICA DE PRIVACIDAD</a>
         </div>
         <div className="text-right flex flex-col md:flex-row items-end md:items-center gap-8 md:gap-8">
           <a href="https://www.instagram.com/soyvalgur/" className="text-sm font-medium">INSTAGRAM</a>

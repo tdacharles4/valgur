@@ -19,7 +19,7 @@ export default function Navbar() {
 
   return (
     <header className="w-full">
-      <nav className="w-full flex justify-between items-center gap-1 px-[8%] py-8">
+      <nav className="w-full flex justify-between items-center gap-1 px-[8%] py-4">
         {/* Desktop links */}
         <ul className="hidden md:flex items-center gap-8">
           <Link href="/" className="text-xl tracking-tight">
