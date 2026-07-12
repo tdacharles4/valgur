@@ -16,7 +16,7 @@ export default function Footer() {
           <a href="/" className="text-sm font-medium">POLITICA DE PRIVACIDAD</a>
         </div>
         <div className="text-right flex flex-col md:flex-row items-end md:items-center gap-8 md:gap-8">
-          <a href="https://www.instagram.com/soyvalgur/" className="text-sm font-medium">INSTAGRAM</a>
+          <a href="https://www.instagram.com/soyvalgur/" target="_blank" rel="noopener noreferrer" className="text-sm font-medium">INSTAGRAM</a>
           <span className="text-sm font-medium">© {new Date().getFullYear()} VALGUR</span>
         </div>
       </div>

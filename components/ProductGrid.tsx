@@ -87,7 +87,7 @@ export function ProductGrid({ products }: { products: Product[] }) {
       {loading ? (
         <div className="text-center py-20 text-[#757575]">Cargando...</div>
       ) : (
-        <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-4">
+        <div className="grid grid-cols-4">
           {products.map((product) => (
             <ProductCard key={product.handle} product={product} />
           ))}
