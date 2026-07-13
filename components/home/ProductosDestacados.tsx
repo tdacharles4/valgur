@@ -7,6 +7,8 @@ export function ProductosDestacados(){
                 <h1 className="text-2xl">PRODUCTOS DESTACADOS ⸜(｡˃ ᵕ ˂ )⸝♡</h1>
                 <ProductGrid
                     products = {mockProducts}
+                    maxGridHeight = {2}
+                    hasPagination = {false}
                 />
                 <div className="flex justify-end text-[#0000EE] underline">
                     <a href="/tienda">Ver más...</a>

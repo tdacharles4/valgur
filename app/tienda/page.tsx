@@ -2,12 +2,12 @@
 
 import * as React from "react";
 import Image from "next/image";
-import { PinkBanner } from "@/components/home/PinkBanner";
+import { TiendaProducts } from "@/components/tienda/TiendaProductsGrid";
 
 export default function Tienda() {
   return (
     <>
-    <PinkBanner/>
+    <TiendaProducts/>
     </>
   );
 }

@@ -43,6 +43,13 @@ export type ShopifyProduct = {
   handle: string;
   description: string;
   availableForSale: boolean;
+  collections?: {
+    edges: {
+      node: {
+        title: string;
+      };
+    }[];
+  };
   images: {
     edges: {
       node: {
@@ -80,6 +87,22 @@ export type ShopifyProduct = {
     }[];
   };
 };
+
+export type ShopifyProductVideo = {
+  mediaContentType: 'VIDEO';
+  sources: { url: string; mimeType: string; format: string }[];
+  previewImage: { url: string } | null;
+};
+
+export type ShopifyProductExternalVideo = {
+  mediaContentType: 'EXTERNAL_VIDEO';
+  embeddedUrl: string;
+  host: string;
+  previewImage: { url: string } | null;
+};
+
+export type ShopifyProductMedia = ShopifyProductVideo | ShopifyProductExternalVideo;
+
 
 export async function getProduct(handle: string) {
   return shopifyFetch<{ data: { product: ShopifyProduct } }>({

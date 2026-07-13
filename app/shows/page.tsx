@@ -1,4 +1,4 @@
-import { Showlist, mockShowlist } from "@/components/Showlist";
+import { Showlist, mockShowlist } from "@/components/shows/Showlist";
 
 
 export default function Shows() {
