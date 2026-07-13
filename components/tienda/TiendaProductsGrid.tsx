@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { ProductCard, Product } from "@/components/ProductCard";
 import { ProductGrid, mockProducts} from "../ProductGrid";
 
 export function TiendaProducts(){
