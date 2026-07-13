@@ -7,7 +7,7 @@ import Image from "next/image";
 import { PinkBanner } from "@/components/home/PinkBanner";
 import { ProductosDestacados } from "@/components/home/ProductosDestacados";
 import { ReleasesDestacados, mockRelease } from "@/components/home/ReleasesDestacados";
-import { mock } from "node:test";
+import { YoutubeEmbed, mockEmbed } from "@/components/home/YoutubeEmbed";
 
 export default function Home() {
 
@@ -25,7 +25,9 @@ export default function Home() {
 
       {/* Banner */}
       <PinkBanner/>
+
       {/* Video Destacado */}
+      <YoutubeEmbed videos={mockEmbed}/>
 
     </>
   );
