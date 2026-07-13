@@ -1,3 +1,10 @@
+import { Showlist, mockShowlist } from "@/components/Showlist";
+
+
 export default function Shows() {
-  return null;
+  return (
+    <> 
+      <Showlist shows={mockShowlist} />
+    </>
+  );
 }

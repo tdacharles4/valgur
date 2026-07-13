@@ -3,7 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 
-type Article = {
+export type Article = {
   handle?: string | null;
   blogHandle?: string | null;
   blogTitle?: string | null;

@@ -7,7 +7,7 @@ export default function Bio() {
           Valgur son Elizabeth y Hugo Valdivieso
         </h1>
       </div>
-      <div className="text-right font-bold underline flex flex-row items-center justify-end gap-4 px-[8%] py-8">
+      <div className="text-right text-[#0000EE] font-bold underline flex flex-row items-center justify-end gap-4 px-[8%] py-8">
         <a href="/bio">Contacto</a>
         <a href="/bio">Booking US / EU</a>
         <a href="/bio">Booking MX / Latam</a>
