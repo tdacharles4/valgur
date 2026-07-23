@@ -2,19 +2,9 @@
 
 import * as React from "react";
 import Link from "next/link";
+import type { ShopifyArticle } from "@/lib/shopify";
 
-export type Article = {
-  handle?: string | null;
-  blogHandle?: string | null;
-  blogTitle?: string | null;
-  title?: string | null;
-  contentHtml?: string | null;
-  publishedAt?: string | null;
-  tags?: string[] | null;
-  image?: { url: string; altText: string | null } | null;
-};
-
-export const mockEmbed: Article [] = [
+export const mockEmbed: ShopifyArticle [] = [
     {
         contentHtml: 'https://www.youtube.com/watch?v=QrAH6mr6FXQ',
         tags: [
@@ -23,7 +13,7 @@ export const mockEmbed: Article [] = [
     }
 ]
 
-export function YoutubeEmbed({ videos }: { videos: Article [] }){
+export function YoutubeEmbed({ videos }: { videos: ShopifyArticle [] }){
   const video = videos.find((v) => v.tags?.includes("video-destacado"));
 
   if (!video) {

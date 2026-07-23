@@ -1,6 +1,6 @@
-import { Product } from "@/components/ProductCard";
+import { ShopifyProduct } from "./shopify";
 
-export const mockProducts: Product[] = [
+export const mockProducts: ShopifyProduct[] = [
   {
     handle: "peluche-hyoma",
     collections: { 

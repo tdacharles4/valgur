@@ -6,18 +6,7 @@ import Link from "next/link";
 import { ShopifyProduct } from "@/lib/shopify";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 
-{/* Showcase */}
-export type Product = {
-    handle: string;
-    collections?: {edges: {node: {title: string;};}[];};
-    images: {edges: {node: {url: string; altText: string;};}[];};
-    title: string;
-    price: {amount: string; currencyCode: string};
-    description: string | null;
-    tallas: string[] | null;
-};
-
-export function ProductCard({product} : {product : Product}){
+export function ProductCard({product} : {product : ShopifyProduct}){
 
     const [isCartHovered, setIsCartHovered] = React.useState(false);
     const image = product.images.edges[0]?.node;

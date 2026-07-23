@@ -1,14 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import { ProductCard, Product } from "@/components/ProductCard";
+import { ProductCard } from "@/components/ProductCard";
+import { ShopifyProduct } from "@/lib/shopify";
 
 export function ProductGrid({
   products,
   maxGridHeight,
   hasPagination = false,
 }: {
-  products: Product[];
+  products: ShopifyProduct[];
   maxGridHeight?: number;
   hasPagination?: boolean;
 }) {

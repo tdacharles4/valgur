@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { Article } from "@/components/home/YoutubeEmbed";
+import type { ShopifyArticle } from "@/lib/shopify";
 
 type Guest = { name: string; symbol: string };
 
@@ -19,7 +19,7 @@ function extract(html: string | null | undefined, label: string): string {
   return m?.[1]?.trim() ?? "";
 }
 
-function parseShow(article: Article): ParsedShow {
+function parseShow(article: ShopifyArticle): ParsedShow {
   const invitadoRaw = extract(article.contentHtml, "Invitado");
 
   const invitados: Guest[] = invitadoRaw
@@ -39,7 +39,7 @@ function parseShow(article: Article): ParsedShow {
   };
 }
 
-export const mockShowlist: Article [] = [
+export const mockShowlist: ShopifyArticle [] = [
     {
         blogTitle: 'Shows',
         title: 'Guadalajara, JAL.',
@@ -103,7 +103,7 @@ export const mockShowlist: Article [] = [
 
 ]
 
-export function Showlist({ shows }: { shows: Article [] }){
+export function Showlist({ shows }: { shows: ShopifyArticle [] }){
 
     const parsed = shows
     .filter((s) => s.tags?.includes("tour-2026"))
