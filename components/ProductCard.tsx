@@ -3,7 +3,7 @@
 import * as React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ShopifyProduct } from "@/lib/shopify";
+import { ShopifyProduct, productHasPriceRange } from "@/lib/shopify";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 
 export function ProductCard({product} : {product : ShopifyProduct}){
@@ -37,7 +37,9 @@ export function ProductCard({product} : {product : ShopifyProduct}){
                 </Link>
                  <CardContent>
                     <CardTitle className="font-bold">{product.title}</CardTitle>
-                    <p>{formatPrice(product.price)} MXN</p>
+                    {productHasPriceRange(product)
+                        ? `${formatPrice(product.priceRange.minVariantPrice)} – ${formatPrice(product.priceRange.maxVariantPrice)}`
+                        : formatPrice(product.variants.edges[0]?.node.price)}
                  </CardContent>
             </Card>
         </>

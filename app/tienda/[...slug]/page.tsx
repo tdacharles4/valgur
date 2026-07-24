@@ -1,14 +1,17 @@
 import { notFound } from "next/navigation";
 import { SlugDisplay } from "@/components/tienda/SlugDisplay";
-import { mockProducts } from "@/lib/mockProducts";
+import { ShopifyProduct, getProduct } from "@/lib/shopify";
 
 interface PageProps {
   params: Promise<{ slug: string[] }>;
 }
 
 export default async function Item({ params }: PageProps) {
+
   const { slug } = await params;
-  const product = mockProducts.find((p) => p.handle === slug[0]);
+
+  const { body } = await getProduct(slug[0]);
+  const product = body.data.product;
 
   if (!product) {
     notFound();

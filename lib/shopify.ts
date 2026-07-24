@@ -264,6 +264,10 @@ export async function getProductsByTag(tag: string) {
     cache: 'no-store'
   });
 }
+export function productHasPriceRange(product: ShopifyProduct): boolean {
+  const range = product.priceRange;
+  return range.minVariantPrice.amount !== range.maxVariantPrice.amount;
+}
 
 // ARTICLES / BLOGS
 //                  Article Types

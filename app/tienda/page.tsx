@@ -1,13 +1,9 @@
-"use client";
-
-import * as React from "react";
-import Image from "next/image";
+import { getProducts, ShopifyProduct } from "@/lib/shopify";
 import { TiendaProducts } from "@/components/tienda/TiendaProductsGrid";
 
-export default function Tienda() {
-  return (
-    <>
-    <TiendaProducts/>
-    </>
-  );
+export default async function Tienda() {
+  const { body } = await getProducts();
+  const products: ShopifyProduct[] = body.data.products.edges.map((e) => e.node);
+  
+  return <TiendaProducts products={products}/>;
 }

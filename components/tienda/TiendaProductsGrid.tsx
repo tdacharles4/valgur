@@ -1,19 +1,21 @@
 "use client";
 
 import { useState } from "react";
-import { ProductGrid, mockProducts} from "../ProductGrid";
+import { ProductGrid } from "../ProductGrid";
+import { ShopifyProduct } from "@/lib/shopify";
 
-export function TiendaProducts(){
+
+export function TiendaProducts({ products }: { products: ShopifyProduct[] }){
     const [filter, setFilter] = useState<string | null>(null);
 
     const filterMerch = () => setFilter((f) => (f === "merch" ? null : "merch"));
     const filterDiscos = () => setFilter((f) => (f === "discos" ? null : "discos"));
 
     const filteredProducts = filter
-        ? mockProducts.filter((product) =>
+        ? products.filter((product) =>
             product.collections?.edges.some((edge) => edge.node.title === filter)
           )
-        : mockProducts;
+        : products;
 
     return(
         <>

@@ -2,9 +2,9 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { Product } from "../ProductCard";
+import { ShopifyProduct } from "@/lib/shopify";
 
-export function SlugDisplay({product} : {product : Product}){
+export function SlugDisplay({product} : {product : ShopifyProduct}){
     const [talla, setTalla] = useState("");
 
     const formatPrice = (price: { amount: string; currencyCode: string }) =>
@@ -13,6 +13,11 @@ export function SlugDisplay({product} : {product : Product}){
             currency: price.currencyCode,
             trailingZeroDisplay: "stripIfInteger",
         }).format(parseFloat(price.amount));
+
+    const sizes = product.variants.edges
+        .map((e) => e.node.selectedOptions[0])
+        .filter((o) => o && o.value !== "Default Title")
+        .map((o) => o.value);
 
     return(
         <>
@@ -33,9 +38,9 @@ export function SlugDisplay({product} : {product : Product}){
                 {/* Columna selectores */}
                 <div className="aspect-square flex flex-col justify-center gap-4 px-[8%]">
                     <h1 className="text-l font-bold uppercase">{product.title}</h1>
-                    <p>{formatPrice(product.price)} MXN</p>
+                    <p>{formatPrice(product.priceRange.minVariantPrice)} MXN</p>
                     {product.description && <p className="italic uppercase opacity-60">{product.description}</p>}
-                    {product.tallas && (
+                    {sizes.length > 0 && (
                         <select
                             value={talla}
                             onChange={(e) => setTalla(e.target.value)}
@@ -45,7 +50,7 @@ export function SlugDisplay({product} : {product : Product}){
                             <option value="" disabled hidden>
                                 SELECCIONAR TALLA
                             </option>
-                            {product.tallas.map((t) => (
+                            {sizes.map((t) => (
                                 <option key={t} value={t} className="uppercase">
                                     {t}
                                 </option>

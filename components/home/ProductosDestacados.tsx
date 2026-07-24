@@ -1,12 +1,13 @@
-import { ProductGrid, mockProducts} from "../ProductGrid";
+import { ProductGrid } from "../ProductGrid";
+import { ShopifyProduct } from "@/lib/shopify";
 
-export function ProductosDestacados(){
+export function ProductosDestacados({ products }: { products: ShopifyProduct[] }){
     return(
         <>
             <div className="w-full flex flex-col px-[8%] gap-4">
                 <h1 className="text-2xl">PRODUCTOS DESTACADOS ⸜(｡˃ ᵕ ˂ )⸝♡</h1>
                 <ProductGrid
-                    products = {mockProducts}
+                    products = {products}
                     maxGridHeight = {2}
                     hasPagination = {false}
                 />

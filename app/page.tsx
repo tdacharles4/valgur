@@ -1,21 +1,19 @@
-"use client";
-
-import * as React from "react";
-import Link from "next/link";
-import { Menu, X } from "lucide-react";
-import Image from "next/image";
+import { ShopifyProduct, getProducts } from "@/lib/shopify";
 import { PinkBanner } from "@/components/home/PinkBanner";
 import { ProductosDestacados } from "@/components/home/ProductosDestacados";
 import { ReleasesDestacados, mockRelease } from "@/components/home/ReleasesDestacados";
 import { YoutubeEmbed, mockEmbed } from "@/components/home/YoutubeEmbed";
 
-export default function Home() {
+export default async function Home() {
+
+  const { body } = await getProducts();
+  const products: ShopifyProduct[] = body.data.products.edges.map((e) => e.node);
 
   return (
     <>
 
       {/* Productos Destacados */}
-      <ProductosDestacados />
+      <ProductosDestacados products={products}/>
       
       {/* Banner */}
       <PinkBanner/>
