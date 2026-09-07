@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { ShopifyProduct } from "@/lib/shopify";
 import { useCart } from "@/contexts/CartContext";
+import { KaomojiBurst } from "@/components/KaomojiBurst";
 
 const SIZE_ORDER = ["XXS", "XS", "S", "M", "L", "XL", "XXL", "2XL", "3XL", "XXXL", "4XL", "5XL"];
 
@@ -22,6 +23,7 @@ function sortIfSize(name: string | undefined, values: string[]): string[] {
 export function SlugDisplay({product} : {product : ShopifyProduct}){
     const { addItem } = useCart();
     const [current, setCurrent] = useState(0);
+    const [burst, setBurst] = useState(0);
 
     const variants = product.variants.edges.map((e) => e.node);
 
@@ -91,6 +93,7 @@ export function SlugDisplay({product} : {product : ShopifyProduct}){
             size: [opt1, opt2].filter(Boolean).join(" / ") || undefined,
             available: variantForCart.quantityAvailable,
         });
+        setBurst((b) => b + 1);
     };
 
     return(
@@ -189,14 +192,17 @@ export function SlugDisplay({product} : {product : ShopifyProduct}){
                             </div>
                         </div>
                     )}
-                    <button
-                        type="button"
-                        onClick={handleAdd}
-                        disabled={!canAdd}
-                        className="border bg-[#FF0084] text-white w-full px-4 py-2 font-['Times_New_Roman'] font-bold italic text-[20px] leading-none tracking-normal cursor-pointer uppercase disabled:opacity-50 disabled:cursor-not-allowed mt-2"
-                    >
-                        Añadir al carro
-                    </button>
+                    <div className="relative mt-2">
+                        <button
+                            type="button"
+                            onClick={handleAdd}
+                            disabled={!canAdd}
+                            className="border bg-[#FF0084] text-white w-full px-4 py-2 font-['Times_New_Roman'] font-bold italic text-[20px] leading-none tracking-normal cursor-pointer uppercase disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                            Añadir al carro
+                        </button>
+                        <KaomojiBurst trigger={burst} />
+                    </div>
                 </div>
             </div>
         </>
