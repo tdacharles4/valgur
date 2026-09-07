@@ -7,6 +7,7 @@ import Image from "next/image";
 import cartIcon from "@/lib/vectors/cart.svg";
 import { useCart } from "@/contexts/CartContext";
 import { LanguageDropdown } from "@/components/ui/language-dropdown";
+import { KaomojiBurst } from "@/components/KaomojiBurst";
 
 const navLinks: { title: string; href: string }[] = [
   { title: "Inicio", href: "/" },
@@ -20,6 +21,19 @@ export default function Navbar() {
   const [open, setOpen] = React.useState(false);
   const { open: openCart, items } = useCart();
   const itemCount = items.reduce((sum, i) => sum + i.quantity, 0);
+  const [burst, setBurst] = React.useState(0);
+
+  React.useEffect(() => {
+    let t: ReturnType<typeof setTimeout>;
+    const schedule = () => {
+      t = setTimeout(() => {
+        setBurst((b) => b + 1);
+        schedule();
+      }, 5000 + Math.random() * 10000); // sporadic, random 5–15s
+    };
+    schedule();
+    return () => clearTimeout(t);
+  }, []);
 
   React.useEffect(() => {
     if (!open) return;
@@ -80,15 +94,12 @@ export default function Navbar() {
           >
             {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
-          <Link href="/" className="
-            text-xl 
-            tracking-tight 
-            justify-self-center 
-            whitespace-nowrap
-            shrink-0
-            ">
-            Valgur <span className="text-[0.6em] align-super">(mx)</span>
-          </Link>
+          <span className="relative justify-self-center">
+            <Link href="/" className="text-xl tracking-tight whitespace-nowrap shrink-0 uppercase">
+              Valgur <span className="text-[0.6em] align-super">(mx)</span>
+            </Link>
+            <KaomojiBurst trigger={burst} />
+          </span>
           <div className="justify-self-end flex items-center gap-3">
             <LanguageDropdown />
             <button type="button" onClick={openCart} aria-label="Abrir carrito" className="relative cursor-pointer">

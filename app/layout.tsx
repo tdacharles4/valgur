@@ -4,6 +4,9 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { CartProvider } from "@/contexts/CartContext";
 import { CartSidebar } from "@/components/cart/CartSidebar";
+import { LoadingScreen } from "@/components/LoadingScreen";
+import { TopProgress } from "@/components/TopProgress";
+import { CursorTrail } from "@/components/CursorTrail";
 
 export const metadata: Metadata = {
   title: "Valgur",
@@ -26,6 +29,9 @@ export default function RootLayout({
         <link rel="manifest" href="/site.webmanifest" />
       </head>
       <body className="antialiased flex flex-col min-h-screen">
+        <LoadingScreen />
+        <TopProgress />
+        <CursorTrail />
         <CartProvider>
           <Navbar />
           <main className="flex-grow flex flex-col">{children}</main>
