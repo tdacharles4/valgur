@@ -45,7 +45,7 @@ export default function Navbar() {
           <ul className="flex items-center gap-8">
             <li>
               <Link href="/" className="text-xl tracking-tight">
-                Valgur <span className="text-[0.6em] align-super">(mx)</span>
+                VALGUR <span className="text-[0.6em] align-super">(mx)</span>
               </Link>
             </li>
             {navLinks.map((link) => (

@@ -102,7 +102,7 @@ export function ReleasesDestacados({ releases }: { releases: ShopifyArticle [] }
                                 </ul>
                         ))}
                         
-                        <div className="items-center flex gap-2 mt-auto self-end">
+                        <div className="items-center flex gap-4 mt-auto self-end">
                             <button type="button" onClick={goPrev} aria-label="Previous release">
                                 <Image src={leftNav} alt="Left Arrow" width={20} height={20} />
                             </button>

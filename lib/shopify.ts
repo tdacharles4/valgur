@@ -532,3 +532,17 @@ export async function getAllPolicies() {
     policy !== null && policy.body.trim() !== ''
   );
 }
+
+export async function getPage(handle: string) {
+  const res = await shopifyFetch<{
+    data: { page: { title: string; body: string } | null };
+  }>({
+    query: `{
+      page(handle: "${handle}") {
+        title
+        body
+      }
+    }`,
+  });
+  return res.body.data.page;
+}
