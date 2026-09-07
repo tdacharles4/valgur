@@ -8,8 +8,24 @@ import kaomojis from "@/lib/designs_separated.json";
 const DESIGNS = kaomojis as string[][];
 
 const STEP = 28; // px the cursor must travel before the next character is etched
-const DELAY = 3000; // ms to wait after landing before the trail starts
+const DELAY = 0; // ms to wait after landing before the trail starts
 const LIFE = 5000; // ms a mark stays before it vanishes (no fade)
+
+const PINK = "#FF0084";
+const BLUE = "#0000EE";
+
+// Walks up from the element under (x, y) to find the nearest real
+// (non-transparent) background-color, falling back to white (the page's
+// own default) if nothing along the way sets one.
+function backgroundColorAt(x: number, y: number): string {
+  let el = document.elementFromPoint(x, y);
+  while (el) {
+    const bg = getComputedStyle(el).backgroundColor;
+    if (bg && bg !== "rgba(0, 0, 0, 0)" && bg !== "transparent") return bg;
+    el = el.parentElement;
+  }
+  return "#ffffff";
+}
 
 export function CursorTrail() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -28,10 +44,25 @@ export function CursorTrail() {
     if (!ctx) return;
 
     const applyStyle = () => {
-      ctx.fillStyle = "#FF0084";
       ctx.font = "16px 'Times New Roman', Times, serif";
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
+    };
+
+    // fillStyle's string form doesn't normalize modern color functions
+    // (e.g. Tailwind's `lab(100 0 0)` for white stays literal text), but
+    // actually rasterizing a pixel always resolves to real RGB — so paint
+    // one pixel on a scratch canvas and read it back to get true values
+    // regardless of how the color was declared.
+    const probe = document.createElement("canvas");
+    probe.width = 1;
+    probe.height = 1;
+    const probeCtx = probe.getContext("2d")!;
+    const isWhite = (colorStr: string) => {
+      probeCtx.fillStyle = colorStr;
+      probeCtx.fillRect(0, 0, 1, 1);
+      const [r, g, b] = probeCtx.getImageData(0, 0, 1, 1).data;
+      return r > 250 && g > 250 && b > 250;
     };
 
     // Scale for crisp text on high-DPI screens.
@@ -50,7 +81,7 @@ export function CursorTrail() {
     const start = performance.now();
 
     // Live marks, each with a birth time so they dissolve in cascade.
-    type Mark = { char: string; x: number; y: number; born: number };
+    type Mark = { char: string; x: number; y: number; born: number; color: string };
     const marks: Mark[] = [];
 
     let design = DESIGNS[Math.floor(Math.random() * DESIGNS.length)];
@@ -66,6 +97,7 @@ export function CursorTrail() {
       for (const m of marks) {
         if (now - m.born >= LIFE) continue; // its 5s are up → gone, no fade
         marks[alive++] = m; // compact survivors in place
+        ctx.fillStyle = m.color;
         ctx.fillText(m.char, m.x, m.y);
       }
       marks.length = alive;
@@ -92,7 +124,8 @@ export function CursorTrail() {
       if (Math.hypot(dx, dy) < STEP) return;
       last = { x: e.clientX, y: e.clientY };
 
-      marks.push({ char: design[charIndex], x: e.clientX, y: e.clientY, born: performance.now() });
+      const color = isWhite(backgroundColorAt(e.clientX, e.clientY)) ? PINK : BLUE;
+      marks.push({ char: design[charIndex], x: e.clientX, y: e.clientY, born: performance.now(), color });
       charIndex++;
 
       // Finished this kaomoji → jump to a new random one.
@@ -113,12 +146,11 @@ export function CursorTrail() {
     };
   }, [pathname]);
 
-  // z-[-1]: paints above the body background but below all normal-flow
-  // content, so the trail only ever shows on the page background.
+  // z-[10000]: above everything, including the loading screen (z-[9999]).
   return (
     <canvas
       ref={canvasRef}
-      className="pointer-events-none fixed inset-0 z-[-1]"
+      className="pointer-events-none fixed inset-0 z-[10000]"
       aria-hidden="true"
     />
   );

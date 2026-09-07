@@ -23,7 +23,7 @@ export function LoadingScreen() {
         fading ? "opacity-0" : "opacity-100"
       }`}
     >
-      <div className="relative inline-block text-6xl md:text-8xl font-bold whitespace-nowrap">
+      <div className="relative inline-block text-2xl whitespace-nowrap">
         {/* base: off-pink */}
         <span className="text-[#FFB3D1]">
           VALGUR <span className="text-[0.6em] align-super">(mx)</span>

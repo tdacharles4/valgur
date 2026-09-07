@@ -1,4 +1,19 @@
+"use client";
+
+import { useState } from "react";
+
+const CONTACT_EMAIL = "valgurmusica@gmail.com";
+const BOOKING_US_EMAIL = "merrick@groundcontroltouring.com";
+
 export default function Bio() {
+  const [toast, setToast] = useState<{ x: number; y: number } | null>(null);
+
+  const copy = (email: string) => (e: React.MouseEvent) => {
+    navigator.clipboard.writeText(email);
+    setToast({ x: e.clientX, y: e.clientY });
+    setTimeout(() => setToast(null), 1500);
+  };
+
   return (
     <>
 
@@ -8,10 +23,19 @@ export default function Bio() {
         </h1>
       </div>
       <div className="text-right text-[#0000EE] font-bold underline flex flex-row items-center justify-end gap-4 px-[8%] py-8">
-        <a href="/bio">Contacto</a>
-        <a href="/bio">Booking US / EU</a>
-        <a href="/bio">Booking MX / Latam</a>
+        <button type="button" className="cursor-pointer" onClick={copy(CONTACT_EMAIL)}>Contacto</button>
+        <button type="button" className="cursor-pointer" onClick={copy(BOOKING_US_EMAIL)}>Booking US</button>
+        <button type="button" className="cursor-pointer" onClick={copy(CONTACT_EMAIL)}>Booking MX / Latam</button>
       </div>
+
+      {toast && (
+        <div
+          className="fixed z-[10001] border border-[#FF0084] bg-white text-[#FF0084] px-2 py-1 text-sm uppercase pointer-events-none"
+          style={{ left: toast.x+10, top: toast.y-10, transform: "translate(0, -100%)" }}
+        >
+          Copiado al portapapeles
+        </div>
+      )}
 
     </>
   );
