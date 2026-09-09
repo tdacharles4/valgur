@@ -1,8 +1,13 @@
+"use client";
+
 import Image from "next/image";
 import { Vinyl } from "@/lib/vinyl";
+import { useLocale } from "@/contexts/LocaleContext";
 
 export function VinylDisplay({ vinyl }: { vinyl: Vinyl }) {
+  const { t } = useLocale();
   const images = vinyl.images.length ? vinyl.images : vinyl.image ? [vinyl.image] : [];
+  const title = t("product.vinylTitlePrefix") + vinyl.title;
   const formatPrice = (p: string) =>
     new Intl.NumberFormat("es-MX", {
       style: "currency",
@@ -18,7 +23,7 @@ export function VinylDisplay({ vinyl }: { vinyl: Vinyl }) {
         <div className="hidden md:flex flex-col gap-2">
           {images.map((src, i) => (
             <div key={src + i} className="relative w-full aspect-square">
-              <Image src={src} alt={vinyl.title} fill sizes="(max-width: 768px) 100vw, 50vw" className="object-contain" />
+              <Image src={src} alt={title} fill sizes="(max-width: 768px) 100vw, 50vw" className="object-contain" />
             </div>
           ))}
         </div>
@@ -26,7 +31,7 @@ export function VinylDisplay({ vinyl }: { vinyl: Vinyl }) {
         <div className="md:hidden flex overflow-x-auto snap-x snap-mandatory [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {images.map((src, i) => (
             <div key={src + i} className="relative w-full shrink-0 snap-center aspect-square">
-              <Image src={src} alt={vinyl.title} fill sizes="100vw" className="object-contain" />
+              <Image src={src} alt={title} fill sizes="100vw" className="object-contain" />
             </div>
           ))}
         </div>
@@ -34,10 +39,10 @@ export function VinylDisplay({ vinyl }: { vinyl: Vinyl }) {
 
       {/* Info */}
       <div className="flex flex-col gap-1 md:aspect-square md:justify-center md:sticky md:top-0 md:self-start md:px-[8%]">
-        <h1 className="text-[20px] font-bold uppercase">{vinyl.title}</h1>
+        <h1 className="text-[20px] font-bold uppercase">{title}</h1>
         {vinyl.price && (
           <p className="text-[20px]">
-            Desde {formatPrice(vinyl.price)} MXN
+            {t("product.from")} {formatPrice(vinyl.price)} {t("product.currency")}
           </p>
         )}
         <a
@@ -46,7 +51,7 @@ export function VinylDisplay({ vinyl }: { vinyl: Vinyl }) {
           rel="noopener noreferrer"
           className="border bg-[#FF0084] text-white w-full px-4 py-2 font-['Times_New_Roman'] font-bold italic text-[20px] leading-none tracking-normal cursor-pointer uppercase text-center mt-2"
         >
-          Ir a Buen Dia Records
+          {t("product.goToBuenDia")}
         </a>
       </div>
     </div>

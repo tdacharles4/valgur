@@ -6,8 +6,10 @@ import { StoreCard } from "@/components/StoreCard";
 import { CardItem } from "@/lib/vinyl";
 import leftNav from "@/lib/vectors/releases_leftnav.svg";
 import rightNav from "@/lib/vectors/releases_rightnav.svg";
+import { useLocale } from "@/contexts/LocaleContext";
 
 export function ProductCarousel({ items }: { items: CardItem[] }) {
+  const { t } = useLocale();
   const [index, setIndex] = useState(0);
 
   if (items.length === 0) return null;
@@ -21,10 +23,10 @@ export function ProductCarousel({ items }: { items: CardItem[] }) {
         <StoreCard item={items[index]} />
       </div>
       <div className="flex justify-center items-center gap-4">
-        <button type="button" onClick={goPrev} aria-label="Anterior" className="shrink-0 cursor-pointer">
+        <button type="button" onClick={goPrev} aria-label={t("carousel.prev")} className="shrink-0 cursor-pointer">
           <Image src={leftNav} alt="" width={20} height={20} />
         </button>
-        <button type="button" onClick={goNext} aria-label="Siguiente" className="shrink-0 cursor-pointer">
+        <button type="button" onClick={goNext} aria-label={t("carousel.next")} className="shrink-0 cursor-pointer">
           <Image src={rightNav} alt="" width={20} height={20} />
         </button>
       </div>

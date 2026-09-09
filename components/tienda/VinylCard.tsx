@@ -6,8 +6,10 @@ import Link from "next/link";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { Vinyl } from "@/lib/vinyl";
 import designs from "@/lib/designs.json";
+import { useLocale } from "@/contexts/LocaleContext";
 
 export function VinylCard({ vinyl }: { vinyl: Vinyl }) {
+  const { t } = useLocale();
   const [design, setDesign] = React.useState<string | null>(null);
 
   return (
@@ -23,21 +25,21 @@ export function VinylCard({ vinyl }: { vinyl: Vinyl }) {
         {vinyl.image ? (
           <Image
             src={vinyl.image}
-            alt={vinyl.title}
+            alt={t("product.vinylTitlePrefix") + vinyl.title}
             fill
             className="object-contain"
           />
         ) : (
           <div className="flex h-full items-center justify-center text-muted-foreground bg-muted">
-            Sin imagen
+            {t("product.noImage")}
           </div>
         )}
       </Link>
       <CardContent>
-        <CardTitle className="font-bold uppercase text-[20px]">{design ?? vinyl.title}</CardTitle>
+        <CardTitle className="font-bold uppercase text-[20px]">{design ?? t("product.vinylTitlePrefix") + vinyl.title}</CardTitle>
         {vinyl.price && (
           <p className="text-[20px]">
-            {new Intl.NumberFormat("es-MX", { style: "currency", currency: "MXN", trailingZeroDisplay: "stripIfInteger" }).format(parseFloat(vinyl.price))} MXN
+            {new Intl.NumberFormat("es-MX", { style: "currency", currency: "MXN", trailingZeroDisplay: "stripIfInteger" }).format(parseFloat(vinyl.price))} {t("product.currency")}
           </p>
         )}
       </CardContent>

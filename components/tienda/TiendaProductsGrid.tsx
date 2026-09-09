@@ -6,8 +6,10 @@ import { TiendaMobileList } from "./TiendaMobileList";
 import { ShopifyProduct } from "@/lib/shopify";
 import { CardItem, Vinyl } from "@/lib/vinyl";
 import { Dropdown } from "../ui/dropdown";
+import { useLocale } from "@/contexts/LocaleContext";
 
 export function TiendaProducts({ products, vinyls }: { products: ShopifyProduct[]; vinyls: Vinyl[] }){
+    const { t } = useLocale();
     const [filter, setFilter] = useState<string | null>(null);
     const [open, setOpen] = useState(false);
 
@@ -29,9 +31,9 @@ export function TiendaProducts({ products, vinyls }: { products: ShopifyProduct[
     : allItems;
 
     const label =
-    filter === "merch" ? "Ropa" :
-    filter === "discos" ? "CDs / Vinilos" :
-    "Filtros";
+    filter === "merch" ? t("shop.clothing") :
+    filter === "discos" ? t("shop.cdsVinyls") :
+    t("shop.filters");
 
     return(
         <>
@@ -39,12 +41,12 @@ export function TiendaProducts({ products, vinyls }: { products: ShopifyProduct[
                 <div className="flex items-center gap-2">
                     <Dropdown
                         value={filter ?? ""}
-                        placeholder="Filtros"
-                        options={[{ value: "merch", label: "Ropa" }, { value: "discos", label: "CDs / Vinilos" }]}
+                        placeholder={t("shop.filters")}
+                        options={[{ value: "merch", label: t("shop.clothing") }, { value: "discos", label: t("shop.cdsVinyls") }]}
                         onChange={(v) => setFilter(v || null)}
                     />
                     {filter && (
-                        <button type="button" onClick={() => setFilter(null)} aria-label="Quitar filtros"
+                        <button type="button" onClick={() => setFilter(null)} aria-label={t("shop.removeFilters")}
                         className="text-xs cursor-pointer">✕</button>
                     )}
                 </div>

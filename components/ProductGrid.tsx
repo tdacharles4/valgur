@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { StoreCard } from "@/components/StoreCard";
 import { CardItem } from "@/lib/vinyl";
+import { useLocale } from "@/contexts/LocaleContext";
 
 const keyOf = (item: CardItem) =>
   item.kind === "product" ? item.product.handle : item.vinyl.handle;
@@ -16,6 +17,7 @@ export function ProductGrid({
   maxGridHeight?: number;
   hasPagination?: boolean;
 }) {
+  const { t } = useLocale();
   const [loading] = useState(false);
   const [page, setPage] = useState(0);
   const [revealed, setRevealed] = useState(false);
@@ -48,7 +50,7 @@ export function ProductGrid({
     <>
       {/* Grid */}
       {loading ? (
-        <div className="text-center py-20 text-[#757575]">Cargando...</div>
+        <div className="text-center py-20 text-[#757575]">{t("product.loading")}</div>
       ) : (
         <div ref={gridRef} className="grid grid-cols-4">
           {visibleItems.map((item, i) => (

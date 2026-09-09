@@ -5,6 +5,7 @@ import Image from "next/image";
 import { ShopifyProduct } from "@/lib/shopify";
 import { useCart } from "@/contexts/CartContext";
 import { KaomojiBurst } from "@/components/KaomojiBurst";
+import { useLocale } from "@/contexts/LocaleContext";
 
 const SIZE_ORDER = ["XXS", "XS", "S", "M", "L", "XL", "XXL", "2XL", "3XL", "XXXL", "4XL", "5XL"];
 
@@ -21,9 +22,11 @@ function sortIfSize(name: string | undefined, values: string[]): string[] {
 }
 
 export function SlugDisplay({product} : {product : ShopifyProduct}){
-    const { addItem } = useCart();
+    const { t } = useLocale();
+    const { addItem, increment } = useCart();
     const [current, setCurrent] = useState(0);
     const [burst, setBurst] = useState(0);
+    const [quantity, setQuantity] = useState(1);
 
     const variants = product.variants.edges.map((e) => e.node);
 
@@ -82,6 +85,7 @@ export function SlugDisplay({product} : {product : ShopifyProduct}){
             : true;
 
     const variantForCart = selectedVariant ?? variants[0];
+    const maxQuantity = variantForCart?.quantityAvailable ?? 1;
 
     const handleAdd = () => {
         if (!canAdd || !variantForCart) return;
@@ -93,6 +97,8 @@ export function SlugDisplay({product} : {product : ShopifyProduct}){
             size: [opt1, opt2].filter(Boolean).join(" / ") || undefined,
             available: variantForCart.quantityAvailable,
         });
+        for (let i = 1; i < quantity; i++) increment(variantForCart.id);
+        setQuantity(1);
         setBurst((b) => b + 1);
     };
 
@@ -149,7 +155,7 @@ export function SlugDisplay({product} : {product : ShopifyProduct}){
                 {/* Columna selectores */}
                 <div className="flex flex-col gap-1 md:aspect-square md:justify-center md:sticky md:top-0 md:self-start md:px-[8%]">
                     <h1 className="text-[20px] font-bold uppercase">{product.title}</h1>
-                    <p className="text-[20px]">{formatPrice(displayPrice)} MXN</p>
+                    <p className="text-[20px]">{formatPrice(displayPrice)} {t("product.currency")}</p>
                     {product.description && <p className="italic uppercase opacity-60">{product.description}</p>}
                     {/* First option */}
                     {optionNames.length >= 1 && values1.length > 0 && (
@@ -160,7 +166,7 @@ export function SlugDisplay({product} : {product : ShopifyProduct}){
                                     <button
                                         key={v}
                                         type="button"
-                                        onClick={() => { setOpt1(v); setOpt2(""); }}
+                                        onClick={() => { setOpt1(v); setOpt2(""); setQuantity(1); }}
                                         className={`min-w-10 h-10 px-2 flex items-center justify-center border border-[#FF0084] uppercase text-sm cursor-pointer ${
                                             opt1 === v ? "bg-[#FF0084] text-white" : "bg-transparent text-[#FF0084]"
                                         }`}
@@ -181,7 +187,7 @@ export function SlugDisplay({product} : {product : ShopifyProduct}){
                                     <button
                                         key={v}
                                         type="button"
-                                        onClick={() => setOpt2(v)}
+                                        onClick={() => { setOpt2(v); setQuantity(1); }}
                                         className={`min-w-10 h-10 px-2 flex items-center justify-center border border-[#FF0084] uppercase text-sm cursor-pointer ${
                                             opt2 === v ? "bg-[#FF0084] text-white" : "bg-transparent text-[#FF0084]"
                                         }`}
@@ -192,6 +198,31 @@ export function SlugDisplay({product} : {product : ShopifyProduct}){
                             </div>
                         </div>
                     )}
+                    <div className="flex flex-col gap-2">
+                        <span className="uppercase text-sm opacity-60">{t("product.quantity")}</span>
+                        <div className="flex items-center gap-2">
+                            <button
+                                type="button"
+                                onClick={() => setQuantity((q) => Math.max(1, q - 1))}
+                                aria-label={t("product.decreaseQuantity")}
+                                className="min-w-10 h-10 px-2 flex items-center justify-center border border-[#FF0084] uppercase text-sm cursor-pointer bg-transparent text-[#FF0084]"
+                            >
+                                -
+                            </button>
+                            <span className="min-w-10 h-10 flex items-center justify-center border border-[#FF0084] text-sm">
+                                {quantity}
+                            </span>
+                            <button
+                                type="button"
+                                onClick={() => setQuantity((q) => Math.min(maxQuantity, q + 1))}
+                                disabled={quantity >= maxQuantity}
+                                aria-label={t("product.increaseQuantity")}
+                                className="min-w-10 h-10 px-2 flex items-center justify-center border border-[#FF0084] uppercase text-sm cursor-pointer bg-transparent text-[#FF0084] disabled:opacity-30 disabled:cursor-not-allowed"
+                            >
+                                +
+                            </button>
+                        </div>
+                    </div>
                     <div className="relative mt-2">
                         <button
                             type="button"
@@ -199,7 +230,7 @@ export function SlugDisplay({product} : {product : ShopifyProduct}){
                             disabled={!canAdd}
                             className="border bg-[#FF0084] text-white w-full px-4 py-2 font-['Times_New_Roman'] font-bold italic text-[20px] leading-none tracking-normal cursor-pointer uppercase disabled:opacity-50 disabled:cursor-not-allowed"
                         >
-                            Añadir al carro
+                            {t("product.addToCart")}
                         </button>
                         <KaomojiBurst trigger={burst} />
                     </div>

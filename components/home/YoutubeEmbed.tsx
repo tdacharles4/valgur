@@ -2,10 +2,12 @@
 
 import Link from "next/link";
 import type { ShopifyArticle } from "@/lib/shopify";
-import { useState, useEffect } from "react"; 
+import { useState, useEffect } from "react";
+import { useLocale } from "@/contexts/LocaleContext";
 
 export function YoutubeEmbed({ videos }: { videos: ShopifyArticle [] }){
 
+  const { t } = useLocale();
   const [video, setVideo] = useState<ShopifyArticle | null>(null);
 
   useEffect(() => {
@@ -29,16 +31,16 @@ export function YoutubeEmbed({ videos }: { videos: ShopifyArticle [] }){
       frameBorder="0"
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
       allowFullScreen
-      title="Embedded youtube"
+      title={t("youtube.iframeTitle")}
     />
     </div>
-    <Link 
-        href={`${watchLink}`} 
+    <Link
+        href={`${watchLink}`}
         className="text-[#0000EE] underline py-8"
-        target="_blank" 
+        target="_blank"
         rel="noopener noreferrer"
     >
-        Ver mas...
+        {t("youtube.seeMore")}
     </Link>
   </div>
   );

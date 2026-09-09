@@ -3,6 +3,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { CartProvider } from "@/contexts/CartContext";
+import { LocaleProvider } from "@/contexts/LocaleContext";
 import { CartSidebar } from "@/components/cart/CartSidebar";
 import { LoadingScreen } from "@/components/LoadingScreen";
 import { TopProgress } from "@/components/TopProgress";
@@ -32,12 +33,14 @@ export default function RootLayout({
         <LoadingScreen />
         <TopProgress />
         <CursorTrail />
-        <CartProvider>
-          <Navbar />
-          <main className="flex-grow flex flex-col">{children}</main>
-          <Footer />
-          <CartSidebar />
-        </CartProvider>
+        <LocaleProvider>
+          <CartProvider>
+            <Navbar />
+            <main className="flex-grow flex flex-col">{children}</main>
+            <Footer />
+            <CartSidebar />
+          </CartProvider>
+        </LocaleProvider>
       </body>
     </html>
   );

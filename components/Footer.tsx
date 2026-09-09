@@ -1,5 +1,5 @@
 import { getPage, getAllPolicies } from "@/lib/shopify";
-import { FooterDrawer } from "@/components/FooterDrawer";
+import { FooterContent } from "@/components/FooterContent";
 
 export default async function Footer() {
   const [atencion, policies] = await Promise.all([
@@ -8,17 +8,5 @@ export default async function Footer() {
   ]);
   const privacidad = policies.find((p) => p.title.toLowerCase().includes("privac")) ?? null;
 
-  return (
-    <footer className="w-full">
-      <div className="w-full flex justify-between items-center gap-1 px-[8%] py-8">
-        <div className="text-left flex flex-col md:flex-row items-start md:items-center gap-8 md:gap-8">
-          <FooterDrawer atencion={atencion} privacidad={privacidad} />
-        </div>
-        <div className="text-right flex flex-col md:flex-row items-end md:items-center gap-8 md:gap-8">
-          <a href="https://www.instagram.com/soyvalgur/" target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-[#0000EE]">INSTAGRAM</a>
-          <span className="text-sm font-medium">© {new Date().getFullYear()} VALGUR</span>
-        </div>
-      </div>
-    </footer>
-  );
+  return <FooterContent atencion={atencion} privacidad={privacidad} />;
 }

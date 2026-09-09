@@ -6,10 +6,12 @@ import Link from "next/link";
 import { ShopifyProduct, productHasPriceRange } from "@/lib/shopify";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import designs from "@/lib/designs.json";
+import { useLocale } from "@/contexts/LocaleContext";
 
 
 export function ProductCard({product} : {product : ShopifyProduct}){
 
+    const { t } = useLocale();
     const [isCartHovered, setIsCartHovered] = React.useState(false);
     const [design, setDesign] = React.useState<string | null>(null);
     
@@ -39,7 +41,7 @@ export function ProductCard({product} : {product : ShopifyProduct}){
                     />
                     ) : (
                     <div className="flex h-full items-center justify-center text-muted-foreground bg-muted">
-                        Sin imagen
+                        {t("product.noImage")}
                     </div>
                     )}
                 </Link>

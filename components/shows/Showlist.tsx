@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import type { ShopifyArticle } from "@/lib/shopify";
+import { useLocale } from "@/contexts/LocaleContext";
 
 type Guest = { name: string; symbol: string };
 
@@ -59,6 +60,7 @@ function parseShow(article: ShopifyArticle): ParsedShow[] {
 
 export function Showlist({ shows }: { shows: ShopifyArticle [] }){
 
+    const { t } = useLocale();
     const parsed = shows
     .flatMap(parseShow);
 
@@ -93,10 +95,10 @@ export function Showlist({ shows }: { shows: ShopifyArticle [] }){
                 {show.invitados.map((g) => ` ${g.symbol}`).join("")}
                 </span>
                 {show.agotado ? (
-                    <span className="text-[#0000EE] line-through shrink-0">Tickets</span>
+                    <span className="text-[#0000EE] line-through shrink-0">{t("shows.tickets")}</span>
                     ) : (
                     <Link href={href} target="_blank" rel="noopener noreferrer" className="text-[#0000EE] underline shrink-0">
-                        Tickets
+                        {t("shows.tickets")}
                     </Link>
                 )}
             </div>
@@ -107,7 +109,7 @@ export function Showlist({ shows }: { shows: ShopifyArticle [] }){
             <div className="pt-30">
             {guests.map((g) => (
                 <p key={g.symbol + g.name}>
-                {g.symbol} Con {g.name}
+                {g.symbol} {t("shows.withGuest")} {g.name}
                 </p>
             ))}
             </div>
@@ -115,9 +117,9 @@ export function Showlist({ shows }: { shows: ShopifyArticle [] }){
         
         </div>
         <div className="text-[clamp(0.6rem,3vw,1rem)] text-right text-[#0000EE] font-bold underline flex flex-row items-center justify-end gap-2 md:gap-4 px-[8%] py-8 mt-auto whitespace-nowrap">
-            <a href="/bio">Contacto</a>
-            <a href="/bio">Booking US / EU</a>
-            <a href="/bio">Booking MX / Latam</a>
+            <a href="/bio">{t("shows.contact")}</a>
+            <a href="/bio">{t("shows.bookingUsEu")}</a>
+            <a href="/bio">{t("shows.bookingMxLatam")}</a>
         </div>
     </div>
     </>

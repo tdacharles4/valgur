@@ -1,0 +1,99 @@
+{
+  "nav": {
+    "logo": "Valgur",
+    "market": "(mx)",
+    "home": "Home",
+    "shows": "Shows",
+    "shop": "Shop",
+    "bio": "Bio",
+    "openCart": "Open cart",
+    "toggleMenu": "Toggle menu",
+    "cartIconAlt": "Cart"
+  },
+  "footer": {
+    "instagram": "INSTAGRAM",
+    "copyright": "© {year} VALGUR",
+    "customerService": "CUSTOMER SERVICE",
+    "privacyPolicy": "PRIVACY POLICY",
+    "close": "Close",
+    "closeGlyph": "✕",
+    "contentUnavailable": "Content unavailable."
+  },
+  "product": {
+    "noImage": "No image",
+    "currency": "MXN",
+    "addToCart": "Add to cart",
+    "from": "From",
+    "goToBuenDia": "Go to Buen Dia Records",
+    "loading": "Loading...",
+    "vinylTitlePrefix": "Vinyl ",
+    "quantity": "Quantity",
+    "decreaseQuantity": "Decrease quantity",
+    "increaseQuantity": "Increase quantity"
+  },
+  "shop": {
+    "filters": "Filters",
+    "clothing": "Clothing",
+    "cdsVinyls": "CDs / Vinyls",
+    "removeFilters": "Remove filters",
+    "prevPage": "<:::::::::::::::::}==+",
+    "nextPage": "+=={:::::::::::::::::>"
+  },
+  "recommended": {
+    "heading": "RECOMMENDED PRODUCTS ⸜(｡˃ ᵕ ˂ )⸝♡",
+    "seeMore": "See all..."
+  },
+  "featured": {
+    "heading": "FEATURED PRODUCTS ⸜(｡˃ ᵕ ˂ )⸝♡",
+    "seeMore": "See all..."
+  },
+  "music": {
+    "heading": "MUSIC ‧₊˚♪ 𝄞₊ ♫ ˚⊹",
+    "prevRelease": "Previous",
+    "nextRelease": "Next",
+    "leftArrowAlt": "Left arrow",
+    "rightArrowAlt": "Right arrow"
+  },
+  "youtube": {
+    "iframeTitle": "Embedded YouTube video",
+    "seeMore": "See all..."
+  },
+  "carousel": {
+    "prev": "Previous",
+    "next": "Next"
+  },
+  "cart": {
+    "empty": "Your cart is empty",
+    "remove": "Remove from cart",
+    "removeGlyph": "✕",
+    "decrement": "Decrease",
+    "decrementGlyph": "-",
+    "increment": "Increase",
+    "incrementGlyph": "+",
+    "total": "Total",
+    "checkout": "Checkout"
+  },
+  "shows": {
+    "tickets": "Tickets",
+    "withGuest": "With",
+    "contact": "Contact",
+    "bookingUsEu": "Booking US / EU",
+    "bookingMxLatam": "Booking MX / Latam"
+  },
+  "bio": {
+    "statement": "A pop musical and performance duo formed by the Valdivieso Gurrión brothers",
+    "contact": "Contact",
+    "bookingUs": "Booking US",
+    "bookingMxLatam": "Booking MX / Latam",
+    "copied": "Copied to clipboard"
+  },
+  "language": {
+    "spanish": "Español",
+    "english": "English",
+    "selectLanguage": "Select language"
+  },
+  "meta": {
+    "title": "Valgur",
+    "appleWebAppTitle": "Valgur"
+  }
+}

@@ -6,6 +6,7 @@ import { ShopifyArticle } from "@/lib/shopify";
 import { useState } from "react";
 import leftNav  from "@/lib/vectors/releases_leftnav.svg";
 import rightNav  from "@/lib/vectors/releases_rightnav.svg";
+import { useLocale } from "@/contexts/LocaleContext";
 
 type Release = {
 images: {edges: {node: {url: string; altText: string;};}[];};
@@ -62,6 +63,7 @@ function parseReleases(articles: ShopifyArticle[]): Release[] {
 
 export function ReleasesDestacados({ releases }: { releases: ShopifyArticle [] }){
 
+    const { t } = useLocale();
     const [index, setIndex] = useState(0);
     const parsedReleases = parseReleases(releases);
     const release = parsedReleases[index];
@@ -75,7 +77,7 @@ export function ReleasesDestacados({ releases }: { releases: ShopifyArticle [] }
     return(
         <>
             <div className="w-full flex flex-col px-[4%] md:px-[8%] py-6 gap-4">
-                <h1 className="text-2xl">MÚSICA ‧₊˚♪ 𝄞₊ ♫ ˚⊹</h1>
+                <h1 className="text-2xl">{t("music.heading")}</h1>
                 <div className="flex flex-col md:flex-row overflow-hidden justify-between gap-4">
                     <div className="relative w-full aspect-square md:h-172 md:w-172">
                     <Image 
@@ -103,11 +105,11 @@ export function ReleasesDestacados({ releases }: { releases: ShopifyArticle [] }
                         ))}
                         
                         <div className="items-center flex gap-4 mt-auto self-end">
-                            <button type="button" onClick={goPrev} aria-label="Previous release">
-                                <Image src={leftNav} alt="Left Arrow" width={20} height={20} />
+                            <button type="button" onClick={goPrev} aria-label={t("music.prevRelease")}>
+                                <Image src={leftNav} alt={t("music.leftArrowAlt")} width={20} height={20} />
                             </button>
-                            <button type="button" onClick={goNext} aria-label="Next release">
-                                <Image src={rightNav} alt="Right Arrow" width={20} height={20} />
+                            <button type="button" onClick={goNext} aria-label={t("music.nextRelease")}>
+                                <Image src={rightNav} alt={t("music.rightArrowAlt")} width={20} height={20} />
                             </button>
                         </div>
                     </div>

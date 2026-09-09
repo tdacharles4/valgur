@@ -39,7 +39,7 @@ export function articlesToVinyls(articles: ShopifyArticle[]): Vinyl[] {
       if (!link || !a.handle) return null;
       return {
         handle: a.handle,
-        title: `Vinil ${a.title ?? ""}`.trim(),
+        title: (a.title ?? "").trim(),
         buenDiaLink: link,
         image: firstImage(a.contentHtml) ?? a.image?.url ?? null,
         images: [],

@@ -3,8 +3,10 @@
 import { useEffect } from "react";
 import Image from "next/image";
 import { useCart } from "@/contexts/CartContext";
+import { useLocale } from "@/contexts/LocaleContext";
 
 export function CartSidebar() {
+  const { t } = useLocale();
   const { items, isOpen, close, removeItem, increment, decrement } = useCart();
 
   useEffect(() => {
@@ -55,7 +57,7 @@ export function CartSidebar() {
       >
         <div className="flex-1 overflow-y-auto p-4 flex flex-col gap-4">
           {items.length === 0 ? (
-            <p className="text-center opacity-60 py-8">Tu carrito está vacío</p>
+            <p className="text-center opacity-60 py-8">{t("cart.empty")}</p>
           ) : (
             items.map((item) => (
               <div key={item.id} className="flex flex-col gap-2">
@@ -73,7 +75,7 @@ export function CartSidebar() {
                   </div>
                   <div className="flex flex-col">
                     <span className="font-bold uppercase">{item.title}</span>
-                    <span>{formatPrice(item.price)} MXN</span>
+                    <span>{formatPrice(item.price)} {t("product.currency")}</span>
                     {item.size && (
                       <span className="uppercase opacity-60">{item.size}</span>
                     )}
@@ -81,30 +83,30 @@ export function CartSidebar() {
                   <button
                     type="button"
                     onClick={() => removeItem(item.id)}
-                    aria-label="Quitar del carrito"
+                    aria-label={t("cart.remove")}
                     className="text-xs cursor-pointer ml-auto"
                   >
-                    ✕
+                    {t("cart.removeGlyph")}
                   </button>
                 </div>
                 <div className="flex items-center justify-between">
                   <button
                     type="button"
                     onClick={() => (item.quantity <= 1 ? removeItem(item.id) : decrement(item.id))}
-                    aria-label="Restar"
+                    aria-label={t("cart.decrement")}
                     className="px-2 cursor-pointer"
                   >
-                    -
+                    {t("cart.decrementGlyph")}
                   </button>
                   <span>{item.quantity}</span>
                   <button
                     type="button"
                     onClick={() => increment(item.id)}
                     disabled={item.quantity >= item.available}
-                    aria-label="Sumar"
+                    aria-label={t("cart.increment")}
                     className="px-2 cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed"
                   >
-                    +
+                    {t("cart.incrementGlyph")}
                   </button>
                 </div>
               </div>
@@ -115,7 +117,7 @@ export function CartSidebar() {
         <div className="p-4">
           {items.length > 0 && (
             <p className="flex justify-between uppercase mb-2">
-              <span className="font-normal">Total</span>
+              <span className="font-normal">{t("cart.total")}</span>
               <span className="font-bold">
                 {formatPrice({
                   amount: items
@@ -131,7 +133,7 @@ export function CartSidebar() {
             type="button"
             className="border bg-[#FF0084] text-white w-full px-4 py-2 font-['Times_New_Roman'] font-bold italic text-[20px] leading-none tracking-normal cursor-pointer uppercase"
           >
-            Checkout
+            {t("cart.checkout")}
           </button>
         </div>
       </aside>

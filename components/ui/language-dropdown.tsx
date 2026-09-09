@@ -1,24 +1,19 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useLocale, Lang } from "@/contexts/LocaleContext";
 
-const LANGUAGES = [
-  { code: "ES", label: "Español" },
-  { code: "EN", label: "English" },
+const LANGUAGES: { code: Lang; labelKey: string }[] = [
+  { code: "ES", labelKey: "language.spanish" },
+  { code: "EN", labelKey: "language.english" },
 ];
 
 export function LanguageDropdown() {
-  const [lang, setLang] = useState("ES");
+  const { lang, setLang, t } = useLocale();
   const [open, setOpen] = useState(false);
 
-  useEffect(() => {
-    const stored = localStorage.getItem("lang");
-    if (stored) setLang(stored);
-  }, []);
-
-  const select = (code: string) => {
+  const select = (code: Lang) => {
     setLang(code);
-    localStorage.setItem("lang", code);
     setOpen(false);
   };
 
@@ -27,7 +22,7 @@ export function LanguageDropdown() {
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
-        aria-label="Seleccionar idioma"
+        aria-label={t("language.selectLanguage")}
         className="flex items-center gap-1 cursor-pointer uppercase text-sm font-medium"
       >
         {lang}

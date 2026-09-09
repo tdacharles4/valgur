@@ -6,33 +6,34 @@ import { Menu, X } from "lucide-react";
 import Image from "next/image";
 import cartIcon from "@/lib/vectors/cart.svg";
 import { useCart } from "@/contexts/CartContext";
+import { useLocale } from "@/contexts/LocaleContext";
 import { LanguageDropdown } from "@/components/ui/language-dropdown";
 import { KaomojiBurst } from "@/components/KaomojiBurst";
 
-const navLinks: { title: string; href: string }[] = [
-  { title: "Inicio", href: "/" },
-  { title: "Shows", href: "/shows" },
-  { title: "Tienda", href: "/tienda" },
-  { title: "Bio", href: "/bio" },
-];
-
 export default function Navbar() {
 
+  const { t } = useLocale();
+  const navLinks: { title: string; href: string }[] = [
+    { title: t("nav.home"), href: "/" },
+    { title: t("nav.shows"), href: "/shows" },
+    { title: t("nav.shop"), href: "/tienda" },
+    { title: t("nav.bio"), href: "/bio" },
+  ];
   const [open, setOpen] = React.useState(false);
   const { open: openCart, items } = useCart();
   const itemCount = items.reduce((sum, i) => sum + i.quantity, 0);
   const [burst, setBurst] = React.useState(0);
 
   React.useEffect(() => {
-    let t: ReturnType<typeof setTimeout>;
+    let timer: ReturnType<typeof setTimeout>;
     const schedule = () => {
-      t = setTimeout(() => {
+      timer = setTimeout(() => {
         setBurst((b) => b + 1);
         schedule();
       }, 5000 + Math.random() * 10000); // sporadic, random 5–15s
     };
     schedule();
-    return () => clearTimeout(t);
+    return () => clearTimeout(timer);
   }, []);
 
   React.useEffect(() => {
@@ -73,8 +74,8 @@ export default function Navbar() {
           {/* Icons */}
           <div className="flex items-center gap-4">
             <LanguageDropdown />
-            <button type="button" onClick={openCart} aria-label="Abrir carrito" className="relative cursor-pointer">
-              <Image src={cartIcon} alt="Cart" width={20} height={20} />
+            <button type="button" onClick={openCart} aria-label={t("nav.openCart")} className="relative cursor-pointer">
+              <Image src={cartIcon} alt={t("nav.cartIconAlt")} width={20} height={20} />
               {itemCount > 0 && (
                 <span className="absolute -top-2 -right-2 flex items-center justify-center min-w-[16px] h-[16px] px-1 rounded-full bg-[#FF0084] text-white text-[10px] leading-none font-bold">
                   {itemCount}
@@ -89,7 +90,7 @@ export default function Navbar() {
           <button
             type="button"
             className="justify-self-start"
-            aria-label="Toggle menu"
+            aria-label={t("nav.toggleMenu")}
             onClick={() => setOpen((prev) => !prev)}
           >
             {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -102,8 +103,8 @@ export default function Navbar() {
           </span>
           <div className="justify-self-end flex items-center gap-3">
             <LanguageDropdown />
-            <button type="button" onClick={openCart} aria-label="Abrir carrito" className="relative cursor-pointer">
-              <Image src={cartIcon} alt="Cart" width={20} height={20} />
+            <button type="button" onClick={openCart} aria-label={t("nav.openCart")} className="relative cursor-pointer">
+              <Image src={cartIcon} alt={t("nav.cartIconAlt")} width={20} height={20} />
               {itemCount > 0 && (
                 <span className="absolute -top-2 -right-2 flex items-center justify-center min-w-[16px] h-[16px] px-1 rounded-full bg-[#FF0084] text-white text-[10px] leading-none font-bold">
                   {itemCount}
